@@ -6,4 +6,4 @@ use Illuminate\Support\Facades\Route;
 
 
 // this is signup route
-Route::get('/signup', [AuthController::class,'Signupfunction']);
+Route::post('/signup', [AuthController::class,'Signupfunction']);
