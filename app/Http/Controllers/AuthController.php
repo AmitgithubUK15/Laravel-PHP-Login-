@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -11,20 +12,28 @@ class AuthController extends Controller
 {
     public function Signupfunction(Request $request)
     {
-        $student = new Student();
-        $student->name = $request->input('body.name');
-        $student->email = $request->input('body.email');
-        $student->password = Hash::make($request->input('body.password'));
-        $student->save();
+        try {
+            $student = new Student();
+            $student->name = $request->input('name');
+            $student->email = $request->input('email');
+            $student->password = Hash::make($request->input('password'));
+            $student->save();
 
-        if($student){
-            return 'Student Id created successfully...';
+            if ($student) {
+                return redirect()->route('auth.login');
+                //    response()->json([
+                //     'message' => 'Student created successfully'
+                //    ]);
+            }
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ], status: 500);
         }
-        else{
-            return 'Opreation failed';
-        }
+    }
 }
-}
+
+
 
  // $name = $request->input('body.name');
         // $email = $request->input('body.email');
