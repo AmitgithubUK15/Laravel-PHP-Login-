@@ -31,6 +31,40 @@ class AuthController extends Controller
             ], status: 500);
         }
     }
+
+     function SigninFunction(Request $request)
+    {
+        
+        try {
+            $email = $request->input('email');
+            $user = Student::where('email',$email)->first();
+            $password = Hash::check($request->input('password'),$user->password);
+            
+            if(!$user){
+                return response()->json([
+                    'message' => 'Invalid email'
+                ]);
+            }
+            
+            if(!$password){
+                return response()->json([
+                    'message'=> 'Invalid password'
+                ]);
+            }
+
+            if($user && $password){
+                return response()->json([
+                  'message' => 'Login Successfully',
+                  'email' => $user->email
+                ]);
+            }
+        }
+        catch (Exception $e) {
+           return response()->json([
+            'message' => $e->getMessage()
+           ],status:500);
+        }
+    }
 }
 
 

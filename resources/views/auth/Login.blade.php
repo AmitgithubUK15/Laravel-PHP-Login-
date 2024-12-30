@@ -25,7 +25,7 @@
                <!-- {/* login form */} -->
                <div>
                     <div>
-                      <form action="/auth/SignupApi" method="post" class='flex flex-col gap-5'>
+                      <form action="/auth/Signin" method="post" class='flex flex-col gap-5'>
                         <!-- {/* name */} -->
                     
                         <!-- {/* email */} -->
