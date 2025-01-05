@@ -5,21 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Models\User;
 use Exception;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+
 
 class AuthController extends Controller
 {
     public function Signupfunction(Request $request)
     {
         try {
-            $student = new Student();
+            $student = new User();
             $student->name = $request->input('name');
             $student->email = $request->input('email');
             $student->password = Hash::make($request->input('password'));
             $student->save();
 
             if ($student) {
+                session(['roll'=>'create']);
                 return redirect()->route('auth.login');
                 //    response()->json([
                 //     'message' => 'Student created successfully'
@@ -32,12 +35,12 @@ class AuthController extends Controller
         }
     }
 
-     function SigninFunction(Request $request)
+    public function SigninFunction(Request $request)
     {
         
         try {
             $email = $request->input('email');
-            $user = Student::where('email',$email)->first();
+            $user = User::where('email',$email)->first();
             $password = Hash::check($request->input('password'),$user->password);
             
             if(!$user){
@@ -51,25 +54,22 @@ class AuthController extends Controller
                     'message'=> 'Invalid password'
                 ]);
             }
-
+        
             if($user && $password){
-                return response()->json([
-                  'message' => 'Login Successfully',
-                  'email' => $user->email
-                ]);
+              return  redirect()->route('createsession',['email'=>$user->email]);
             }
         }
         catch (Exception $e) {
            return response()->json([
-            'message' => $e->getMessage()
+            'error' => $e->getMessage()
            ],status:500);
         }
     }
+
+
+    public function Sessionfunction($email){
+    session(['useremail'=>$email]);
+    return redirect()->route('home');
+    }
 }
 
-
-
- // $name = $request->input('body.name');
-        // $email = $request->input('body.email');
-        // $password = $request->input('body.password');     
-        // ['name' => $name, 'email' => $email, 'password' => $password]  

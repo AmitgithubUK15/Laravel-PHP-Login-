@@ -8,6 +8,7 @@
 </head>
 <body>
 <div class='w-full h-full'>
+
        <div class='w-full h-full  flex justify-center items-center'>
 
           <div class='w-72 border shadow-lg rounded-md'>

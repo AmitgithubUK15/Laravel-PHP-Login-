@@ -12,8 +12,10 @@ Route::get('/signup', function (){
 
 Route::view('/login', 'auth.login')->name('login');
 
+
 // for api route
 Route::post('/SignupApi',[AuthController::class,'Signupfunction']);
 Route::post('/Signin',[AuthController::class, 'SigninFunction']);
 
-// 
+
+Route::get('/createsession/{email}',[AuthController::class, 'Sessionfunction'])->name('createsession');
