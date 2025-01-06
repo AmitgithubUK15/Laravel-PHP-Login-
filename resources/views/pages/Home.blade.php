@@ -28,5 +28,24 @@
 
      </div>
     
+          
+ <div>
+ @if (session('useremail'))
+        <p class="text-green-500">Message: {{ session('useremail') }}</p>
+    @else
+        <p>No message found</p>
+    @endif
+ </div>
+
+  <div>
+  @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    
+@endif
+  </div>
+
+  
 </body> 
 </html>
