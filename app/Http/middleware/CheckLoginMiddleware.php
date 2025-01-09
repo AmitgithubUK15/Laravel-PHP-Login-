@@ -7,6 +7,7 @@ use Closure;
 use Exception;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Helpers\Helpers;
 
 class CheckLoginMiddleware
 {
@@ -21,28 +22,27 @@ class CheckLoginMiddleware
 
     public function handle(Request $request, Closure $next)
     {
+    
         $token = $request->cookie('user');
-
+        
+        // if token modifyed or token null redirect to login
         if (!$token) {
             return redirect()
             ->route('login')
             ->with('error', 'Unauthorized');
         }
+            
+            // create Helpers class instance and then send token for verifying on VerifyCookie function
+            $helperObj = new Helpers();
+            $send_cookie_for_Verify = $helperObj->VerifyCookie($token);
 
-        try {
-            $decodedCookie = decrypt($token);
-            $actualCookie = env('AUTH_COOKIE');
-
-            if ($decodedCookie !== $actualCookie) {
-                return redirect()
-                    ->route('login')
-                    ->with('error', 'Session expire');
-            }
-        } catch (Exception $e) {
+            if(!$send_cookie_for_Verify['success']){
             return redirect()
-                ->route('login')
-                ->with('error', "Invalid Cookie Format");
-        }
+            ->route('login')
+            ->with('error', $send_cookie_for_Verify['message']);
+            }
+            
+
 
         return $next($request);
     }

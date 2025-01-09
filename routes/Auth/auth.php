@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Middleware\CheckLoginMiddleware;
 use Illuminate\Support\Facades\Route;
 
 
@@ -13,9 +14,15 @@ Route::get('/signup', function (){
 Route::view('/login', 'auth.login')->name('login');
 
 
+
 // for api route
 Route::post('/SignupApi',[AuthController::class,'Signupfunction']);
 Route::post('/Signin',[AuthController::class, 'SigninFunction']);
+Route::post('/logout',[AuthController::class, 'SignoutFunction']);
+// ->middleware([CheckLoginMiddleware::class]);
+// -
 
+Route::get('/getusercookie/{userid}',[AuthController::class,'getCookieFromMap']);
 
-Route::get('/createsession/{email}',[AuthController::class, 'Sessionfunction'])->name('createsession');
+// create session route
+Route::get('/createsession/{userid}',[AuthController::class, 'Sessionfunction'])->name('createsession');

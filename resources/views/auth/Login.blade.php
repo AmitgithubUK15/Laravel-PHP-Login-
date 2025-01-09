@@ -48,7 +48,7 @@
                 <!-- {/* Login button */} -->
                 <div class=' rounded-md overflow-hidden'>
                   <div class='w-full bg-black'>
-                    <button type='submit' class='border w-full text-white p-3 text-md font-semibold'>Signup</button>
+                    <button type='submit' class='border w-full text-white p-3 text-md font-semibold'>Login</button>
                   </div>
                 </div>
               </form>
@@ -72,7 +72,9 @@
           <div>
             <div class='flex flex-col gap-3 '>
               <div class='text-center text-md'>
-                <h3>Signup</h3>
+                <form action="/auth/signup">
+                  <button type="submit"><h3 class="font-bold">Signup</h3></button>
+                </form>
               </div>
 
               <div class='flex justify-center'>

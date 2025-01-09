@@ -14,7 +14,7 @@ return new class extends  Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->id(); // Auto-incrementing primary key
+            $table->string('userid')->unique(); // Auto-incrementing primary key
             $table->string('name'); // Name column
             $table->string('email')->unique(); // Email column with unique constraint
             $table->string('password'); // Password column

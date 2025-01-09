@@ -16,7 +16,10 @@
             </div>
             <div>
                 <div>
-                    <button class='text-2xl font-bold text-red-500'>Logout</button>
+                    <form  action="/auth/logout" method="post">
+                    @csrf
+                    <button type="submit" class='text-2xl font-bold text-red-500'>Logout</button>
+                    </form>
                 </div>
             </div>
            </div>
@@ -30,8 +33,8 @@
     
           
  <div>
- @if (session('useremail'))
-        <p class="text-green-500">Message: {{ session('useremail') }}</p>
+ @if (session('userid'))
+        <p class="text-green-500">Message: {{ session('userid') }}</p>
     @else
         <p>No message found</p>
     @endif

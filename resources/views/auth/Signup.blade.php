@@ -69,7 +69,9 @@
                <div >
                   <div class='flex flex-col gap-3 '>
                     <div class='text-center text-md'>
-                    <h3>If have account already , Login</h3>
+                    <h3>If have account already   <form action="/auth/login">
+                  <button type="submit"><h3 class=" font-bold">Login</h3></button>
+                </form></h3>
                     </div>
 
                     <div class='flex justify-center'>

@@ -3,16 +3,19 @@
 
 use App\Http\Middleware\CheckLoginMiddleware;
 use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route;
 
     require __DIR__ . '/auth/auth.php';
 
+    // home
     Route::get('/', function (Request $request) {
         return view('pages.Home');
     })
         ->name('home')
         ->middleware([CheckLoginMiddleware::class]);
 
+
+    // testing
     Route::get('/session', function () {
         $email = "Amit@gmail.com";
         session(['email' => $email]);
